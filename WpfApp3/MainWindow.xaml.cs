@@ -21,6 +21,10 @@ namespace WpfApp3
     /// </summary>
     public partial class MainWindow : Window
     {
+        string directoryName;
+        int selectedImage;
+        public string[] filePaths;
+
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -33,6 +37,7 @@ namespace WpfApp3
             
             ImageSource imageT = new BitmapImage(new Uri("C:/Users/Public/Pictures/Sample Pictures/Lighthouse.jpg", UriKind.Absolute));
 
+            /*
             for (int i = 0; i < 100; ++i)
             {
                 Image icon = new Image()
@@ -52,11 +57,16 @@ namespace WpfApp3
 
                 this.grid.Children.Add(icon);
             }
+            */
         }
 
         void Icon_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(string.Format("You clicked on the {0} icon.", (sender as Image).Tag));
+            Console.WriteLine(string.Format("You clicked on the {0} icon.", (sender as Image).Name));
+
+            selectedImage = Convert.ToInt32((sender as Image).Tag);
+            ImageSource iconSource = new BitmapImage(new Uri(filePaths[selectedImage], UriKind.Absolute));
+            Image_LargePreview.Source = iconSource;
         }
 
         void Icon_MouseEnter(object sender, RoutedEventArgs e)
@@ -71,26 +81,56 @@ namespace WpfApp3
 
         private void Button_ChooseFolder_Click(object sender, RoutedEventArgs e)
         {
-            // Create OpenFileDialog 
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
-
-
-            // Set filter for file extension and default file extension 
-            dlg.DefaultExt = ".png";
-            dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
-
-
-            // Display OpenFileDialog by calling ShowDialog method 
             Nullable<bool> result = dlg.ShowDialog();
 
-
-            // Get the selected file name and display in a TextBox 
             if (result == true)
             {
-                // Open document 
-                string filename = dlg.FileName;
-                //textBox1.Text = filename;
+                string fileName = dlg.FileName;
+                int strIndex = fileName.LastIndexOf('\\');
+                directoryName = fileName.Substring(0, strIndex);
+                Label_FilePath.Content = directoryName;
+
+                filePaths = Directory.GetFiles(directoryName, "*",
+                                         SearchOption.TopDirectoryOnly);
+
+
+                string[] fileNames = new string[filePaths.Length];
+
+                for (int i=0; i<filePaths.Length;i++)
+                {
+                    string s = filePaths[i];
+
+                    fileNames[i] = System.IO.Path.GetFileNameWithoutExtension(filePaths[i]);
+
+                    ImageSource iconSource = new BitmapImage(new Uri(s, UriKind.Absolute));
+
+                    Image icon = new Image()
+                    {
+                        Name = "image_" + i,
+                        Tag = i,
+                        Source = iconSource,
+                        Width = 100,
+                        Height = 100,
+                        Stretch = Stretch.Fill,
+                        Opacity = 0.85
+
+                    };
+
+                    icon.MouseLeftButtonDown += new MouseButtonEventHandler(Icon_Click);
+                    icon.MouseEnter += new MouseEventHandler(Icon_MouseEnter);
+                    icon.MouseLeave += new MouseEventHandler(Icon_MouseLeave);
+
+                    this.grid.Children.Add(icon);
+                }
+
+                foreach (string s in filePaths)
+                {
+                    
+                }
+                
+
             }
 
         }
