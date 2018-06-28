@@ -9,7 +9,7 @@
         <ScrollViewer Margin="400,0,0,0">
             <WrapPanel x:Name="grid" Width="400" HorizontalAlignment="Right" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
         </ScrollViewer>
-        <Button x:Name="Button_ChooseFolder" Content="Choose Folder..." HorizontalAlignment="Left" Height="26" Margin="10,10,0,0" VerticalAlignment="Top" Width="150"/>
+        <Button x:Name="Button_ChooseFolder" Content="Choose Folder..." HorizontalAlignment="Left" Height="26" Margin="10,10,0,0" VerticalAlignment="Top" Width="150" Click="Button_ChooseFolder_Click"/>
     </Grid>
 
 
