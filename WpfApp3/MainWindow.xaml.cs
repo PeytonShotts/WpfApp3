@@ -29,24 +29,43 @@ namespace WpfApp3
         public MainWindow()
         {
             InitializeComponent();
+            
+            ImageSource imageT = new BitmapImage(new Uri("C:/Users/Public/Pictures/Sample Pictures/Lighthouse.jpg", UriKind.Absolute));
 
-            for (int i = 0; i < 1000; ++i)
+            for (int i = 0; i < 100; ++i)
             {
-                Button button = new Button()
+                Image icon = new Image()
                 {
-                    Content = string.Format("Button {0}", i),
+                    Name = "icon" + i.ToString(),
+                    Source = imageT,
                     Tag = i,
                     Width = 100,
-                    Height = 100
+                    Height = 100,
+                    Stretch = Stretch.UniformToFill,
+                    Opacity = 0.85
+                    
                 };
-                button.Click += new RoutedEventHandler(button_Click);
-                this.grid.Children.Add(button);
+                icon.MouseLeftButtonDown += new MouseButtonEventHandler(Icon_Click);
+                icon.MouseEnter += new MouseEventHandler(Icon_MouseEnter);
+                icon.MouseLeave += new MouseEventHandler(Icon_MouseLeave);
+
+                this.grid.Children.Add(icon);
             }
         }
 
-        void button_Click(object sender, RoutedEventArgs e)
+        void Icon_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(string.Format("You clicked on the {0} button.", (sender as Button).Tag));
+            Console.WriteLine(string.Format("You clicked on the {0} icon.", (sender as Image).Tag));
+        }
+
+        void Icon_MouseEnter(object sender, RoutedEventArgs e)
+        {
+            (sender as Image).Opacity = 1.0;
+        }
+
+        void Icon_MouseLeave(object sender, RoutedEventArgs e)
+        {
+            (sender as Image).Opacity = 0.85;
         }
     }
 

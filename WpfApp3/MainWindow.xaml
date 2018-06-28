@@ -1,20 +1,16 @@
 ﻿<Window x:Class="WpfApp3.MainWindow"
+    
         
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="MainWindow" Height="400" Width="800">
-    <!--<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" >
-        <ItemsControl ItemsSource="{Binding Items, ElementName=UI}">
-            <ItemsControl.ItemsPanel >
-                <ItemsPanelTemplate >
-                    <UniformGrid x:Name="grid" Margin="300,0,0,0"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
-    </ScrollViewer>-->
-    <ScrollViewer>
-        <WrapPanel x:Name="grid" Width="400" HorizontalAlignment="Right"/>
-    </ScrollViewer>
+
+    <Grid>
+        <ScrollViewer Margin="400,0,0,0">
+            <WrapPanel x:Name="grid" Width="400" HorizontalAlignment="Right" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+        </ScrollViewer>
+        <Button x:Name="Button_ChooseFolder" Content="Choose Folder..." HorizontalAlignment="Left" Height="26" Margin="10,10,0,0" VerticalAlignment="Top" Width="150"/>
+    </Grid>
 
 
 </Window>
