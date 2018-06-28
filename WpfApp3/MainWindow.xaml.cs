@@ -20,31 +20,33 @@ namespace WpfApp3
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            
+        }
+
         public MainWindow()
         {
             InitializeComponent();
 
-            var img1 = CreateImage("C:/Users/Public/Pictures/Sample Pictures/lighthouse.jpg");
-            var img2 = CreateImage("C:/Users/Public/Pictures/Sample Pictures/desert.jpg");
-
-            Image newImage = new Image();
-            ImageSource Image1 = new BitmapImage(new Uri("C:/Users/Public/Pictures/Sample Pictures/lighthouse.jpg"));
-            image1.Source = Image1;
-            image2.Source = Image1;
-            image3.Source = Image1;
-            image4.Source = Image1;
-
-
+            for (int i = 0; i < 1000; ++i)
+            {
+                Button button = new Button()
+                {
+                    Content = string.Format("Button {0}", i),
+                    Tag = i,
+                    Width = 100,
+                    Height = 100
+                };
+                button.Click += new RoutedEventHandler(button_Click);
+                this.grid.Children.Add(button);
+            }
         }
 
-
-
-        private Image CreateImage(string imagePath)
+        void button_Click(object sender, RoutedEventArgs e)
         {
-            Image newImage = new Image();
-            ImageSource MoleImage = new BitmapImage(new Uri(imagePath));
-            newImage.Source = MoleImage;
-            return newImage;
+            Console.WriteLine(string.Format("You clicked on the {0} button.", (sender as Button).Tag));
         }
     }
 
