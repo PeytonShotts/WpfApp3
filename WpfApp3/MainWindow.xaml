@@ -6,7 +6,7 @@
     Title="MainWindow" Height="720" Width="1280">
 
     <Grid>
-        <ScrollViewer Margin="374,0,0,0">
+        <ScrollViewer Margin="859,0,0,0">
             <WrapPanel x:Name="grid" Width="400" HorizontalAlignment="Right" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
         </ScrollViewer>
         <Button x:Name="Button_ChooseFolder" Content="Choose Folder..." HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" VerticalAlignment="Top" Width="108" Click="Button_ChooseFolder_Click"/>

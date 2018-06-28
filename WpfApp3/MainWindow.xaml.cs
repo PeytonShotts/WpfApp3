@@ -37,27 +37,19 @@ namespace WpfApp3
             
             ImageSource imageT = new BitmapImage(new Uri("C:/Users/Public/Pictures/Sample Pictures/Lighthouse.jpg", UriKind.Absolute));
 
-            /*
-            for (int i = 0; i < 100; ++i)
-            {
-                Image icon = new Image()
-                {
-                    Name = "icon" + i.ToString(),
-                    Source = imageT,
-                    Tag = i,
-                    Width = 100,
-                    Height = 100,
-                    Stretch = Stretch.UniformToFill,
-                    Opacity = 0.85
-                    
-                };
-                icon.MouseLeftButtonDown += new MouseButtonEventHandler(Icon_Click);
-                icon.MouseEnter += new MouseEventHandler(Icon_MouseEnter);
-                icon.MouseLeave += new MouseEventHandler(Icon_MouseLeave);
 
-                this.grid.Children.Add(icon);
-            }
-            */
+            System.Drawing.Bitmap newBitmap = new System.Drawing.Bitmap("C:/Users/Public/Pictures/Sample Pictures/Lighthouse.jpg");
+            System.Drawing.Color pixelColor = newBitmap.GetPixel(0, 0);
+
+            //Console.WriteLine("red: " + pixelColor.R);
+
+            newBitmap.SetPixel(0, 0, System.Drawing.Color.FromArgb(0, 0, 0));
+            newBitmap.Save("Lighthouse_edit.jpg");
+
+            //System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
+            //Console.WriteLine(encoding.GetBytes("t")[0]);
+
+            Console.WriteLine(StringToBinary("test"));
         }
 
         void Icon_Click(object sender, RoutedEventArgs e)
@@ -118,6 +110,7 @@ namespace WpfApp3
 
                     };
 
+
                     icon.MouseLeftButtonDown += new MouseButtonEventHandler(Icon_Click);
                     icon.MouseEnter += new MouseEventHandler(Icon_MouseEnter);
                     icon.MouseLeave += new MouseEventHandler(Icon_MouseLeave);
@@ -125,16 +118,47 @@ namespace WpfApp3
                     this.grid.Children.Add(icon);
                 }
 
-                foreach (string s in filePaths)
-                {
-                    
-                }
-                
-
             }
 
         }
+
+        private string StringToBinary(string inputString)
+        {
+            string output = "";
+            System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
+
+            for (int i = 0; i < inputString.Length; i++)
+            {
+                int asciiValue = encoding.GetBytes(inputString)[i];
+                string binaryChar = Convert.ToString(asciiValue, 2);
+                
+                string EightBitChar = binaryChar.PadLeft(8, '0');
+
+                output += EightBitChar;
+            }
+             
+            return output;
+        }
+
+        private string BinaryToString(string inputBinary)
+        {
+            return null;
+        }
+
+        private void encodeImage(System.Drawing.Bitmap inputImage, string text)
+        {
+            string binaryText = StringToBinary(text);
+
+            for (int i=0; i<80; i++)
+            {
+                int r = inputImage.GetPixel(i, 0).R;
+                int c = binaryText[i];
+
+                if (r % 2 == )
+            }
+        }
     }
+
 
 
 }
